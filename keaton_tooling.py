@@ -102,7 +102,7 @@ def show_covers_iter(result):
     
     books = list(result.keys())
     i = 0
-    while True:
+    while i < len(books): 
         yield(result[books[i]]['path_to_cover_jpg'])
         i += 1
 
