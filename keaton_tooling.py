@@ -9,7 +9,7 @@
 
 import pandas, json
 from collections import namedtuple, OrderedDict
-
+from types import MethodType
 
 def build_dict(filename):
     """Load JSON file into dictionary."""
@@ -57,7 +57,23 @@ def build_dict(filename):
             uuid = book[20])
 
         mybooks[book[17]] = BookofTheLoop
-        
+
+    def search(self, search_term, field):
+        """Search Calibre books, returns dictionary of results."""
+
+        result = {}
+        for book in mybooks:
+            # ignore un-tagged books
+            if isinstance(getattr(mybooks[book], field), float):
+                continue
+            elif search_term.lower() in getattr(mybooks[book], field).lower():
+                #print(book)
+                result[book] = mybooks[book]
+
+        return(result)
+
+    mybooks.search = MethodType(search, mybooks)
+
     return mybooks
 
 def write_json(mybooks, filename):
