@@ -60,7 +60,6 @@ def build_dict():
 
     return mybooks
 
-
 def write_json(mybooks, filename):
     """Write dictionary to file."""
     
@@ -72,7 +71,6 @@ def load_json(filename):
     with open(filename, 'r') as f:
         mybooks = json.load(f)
     return(mybooks)
-
 
 def search(search_term, field):
     """Search Keaton Library books, returns dictionary of results."""
@@ -87,7 +85,6 @@ def search(search_term, field):
             
     return(result)
 
-
 def ten_titles_iter(result):
     """Iterates over library search dict result returning titles."""
     titles = [title for j, title in enumerate(result.keys())]  
@@ -95,7 +92,6 @@ def ten_titles_iter(result):
     while i < len(titles): 
         yield(titles[i:i+10]) 
         i += 10
-
 
 def show_covers_iter(result):
     """Iterates over library search dict result returning cover JPG file paths."""
