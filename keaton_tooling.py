@@ -12,6 +12,7 @@ from collections import namedtuple, OrderedDict
 
 
 def build_dict(filename):
+    """Load JSON file into dictionary."""
 
     keaton_df = pandas.read_csv(filename)
     values = keaton_df.get_values()
@@ -67,12 +68,15 @@ def write_json(mybooks, filename):
         f.write(json)
     
 def load_json(filename):
+    """Load dictionary from JSON file."""
+
     with open(filename, 'r') as f:
         mybooks = json.load(f)
     return(mybooks)
 
 def search(search_term, field):
     """Search Keaton Library books, returns dictionary of results."""
+
     result = {}
     for book in mybooks:
         # ignore un-tagged books
@@ -86,6 +90,7 @@ def search(search_term, field):
 
 def ten_titles_iter(result):
     """Iterates over library search dict result returning titles."""
+
     titles = [title for j, title in enumerate(result.keys())]  
     i = 0
     while i < len(titles): 
@@ -94,6 +99,7 @@ def ten_titles_iter(result):
 
 def show_covers_iter(result):
     """Iterates over library search dict result returning cover JPG file paths."""
+    
     books = list(result.keys())
     i = 0
     while True:
