@@ -1,19 +1,19 @@
+"""Calibre library Python tooling."""
+
 #   Python tooling for 
 #
 #        Keaton Institute Calibre Library
 #
-#   It is now Monday May 27th 23:40 and all is well.
+#   Monday May 27th 23:40
+#   d@v1d.dk CPH, DK
 
-
-import pandas
+import pandas, json
 from collections import namedtuple, OrderedDict
-import json
 
 
+def build_dict(filename):
 
-def build_dict():
-
-    keaton_df = pandas.read_csv('keaton.csv')
+    keaton_df = pandas.read_csv(filename)
     values = keaton_df.get_values()
 
     mybooks = OrderedDict()
@@ -57,7 +57,6 @@ def build_dict():
 
         mybooks[book[17]] = BookofTheLoop
         
-
     return mybooks
 
 def write_json(mybooks, filename):
@@ -102,5 +101,5 @@ def show_covers_iter(result):
         i += 1
 
 
-mybooks = build_dict()
+mybooks = build_dict('keaton.csv')
 books = mybooks
