@@ -6,7 +6,7 @@
 import pandas, json, re, os, copy
 from collections import namedtuple, OrderedDict
 import sh, os
-import libgen
+import libgen, goodreads, thehiddenbay, youtube
 
 
 class DictWithSearch(dict):
@@ -74,17 +74,30 @@ class DictWithSearch(dict):
             return "error: more than 200 results, assuming a mistake has been made ( in amazon_open)"
 
     def cover_html(self, width, link_to):
+        """link_to options: amazon libgen goodread thehiddenbay youtube."""
         covers = []
         html_str = '<a href="linkylinky" alt="none title="Amazon"><img src="smiley.gif" alt="Smiley face" width="300"></img></a>'
         temp_html_str = html_str.replace('300', str(width))
         #print(f'temp_html_str: {temp_html_str}')
         for item in self:
+
+            abreviated_title = self[item].title.split(':')[0]
+
+            if isinstance(self[item].path_to_cover_jpg, float):
+                continue # NB: consequenses unknown :D .D
+            new_html_str = temp_html_str.replace('smiley.gif', self[item].path_to_cover_jpg)
             if link_to.lower() == 'amazon':
-                new_html_str = temp_html_str.replace('smiley.gif', self[item].path_to_cover_jpg)
                 new_html_str = new_html_str.replace('linkylinky',self[item].amazon_url)
+                #new_html_str = new_html_str.replace('Amazon',self[item].amazon_url)
             if link_to.lower() == 'libgen':
-                new_html_str = temp_html_str.replace('smiley.gif', self[item].path_to_cover_jpg)
-                new_html_str = new_html_str.replace('linkylinky', libgen.run(self[item].title))
+                new_html_str = new_html_str.replace('linkylinky', libgen.main(abreviated_title))
+            if link_to.lower() == 'goodreads':
+                new_html_str = new_html_str.replace('linkylinky', goodreads.main(abreviated_title))
+            if link_to.lower() == 'thehiddenbay':
+                new_html_str = new_html_str.replace('linkylinky', thehiddenbay.main(abreviated_title))
+            if link_to.lower() == 'youtube':
+                new_html_str = new_html_str.replace('linkylinky', youtube.main(abreviated_title))
+                #new_html_str = new_html_str.replace('Amazon',self[item].amazon_url)
             #print(self[item].amazon_url)
             covers.append(new_html_str)
         covers_str = " ".join([cover for cover in covers])
