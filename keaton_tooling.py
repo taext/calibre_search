@@ -11,6 +11,7 @@ class DictWithSearch(dict):
     """dict object with search, intitle and intags functions."""
 
     def __repr__(self):
+        """Build string representation with title and tags."""
         
         titles = [t for t in self]                                                                                                                                
         string_repr = ""
