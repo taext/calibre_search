@@ -117,6 +117,14 @@ class DictWithSearch(dict):
         sh.google_chrome('temp.htm')
         os.remove('temp.htm')
 
+    def untagged(self):
+        result = DictWithSearch()
+
+        for item in self:
+            if isinstance(self[item].tags, float):
+                result[item] = self[item]
+        return(result)
+
 
 def build_dict(filename):
     """Load JSON file into dictionary."""
