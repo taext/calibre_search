@@ -37,8 +37,6 @@ class DictWithSearch(dict):
         return(result)
 
     
-
-
 def build_dict(filename):
     """Load JSON file into dictionary."""
 
@@ -119,9 +117,9 @@ def build_dict(filename):
 def write_json(mybooks, filename):
     """Write dictionary to file."""
     
-    json = json.dumps(mybooks)
+    json_dict = json.dumps(mybooks)
     with open(filename,'w') as f:
-        f.write(json)
+        f.write(json_dict)
     
 def load_json(filename):
     """Load dictionary from JSON file."""
