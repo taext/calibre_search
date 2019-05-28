@@ -1,6 +1,6 @@
 
 
-        How to Install
+        HOW TO INSTALL
 
         Copy a Calibre .csv library export file to the folder.
 
