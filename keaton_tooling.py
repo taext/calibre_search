@@ -11,15 +11,32 @@ import pandas, json
 from collections import namedtuple, OrderedDict
 from types import MethodType
 
+class DictWithSearch(dict):
+
+    def search(self, search_term, field):
+        """Search Keaton Library books, returns dictionary of results."""
+
+        result = DictWithSearch()
+        for book in self:
+            # ignore un-tagged books
+            if isinstance(getattr(self[book], field), float):
+                continue
+            elif search_term.lower() in getattr(self[book], field).lower():
+                #print(book)
+                result[book] = self[book]
+                
+        return(result)
+
+
 def build_dict(filename):
     """Load JSON file into dictionary."""
 
     keaton_df = pandas.read_csv(filename)
     values = keaton_df.get_values()
 
-    mybooks = OrderedDict()
+    mybooks = DictWithSearch()
     for book in values:
-        Book = namedtuple('Book', 'author description path_to_cover_jpg time_stamp book_format isbn identifiers language library_name pubdate publisher rating series series_index size tags title title_sort id_no uuid')
+        Book = namedtuple('Book', 'author description path_to_cover_jpg time_stamp book_format isbn identifiers language library_name pubdate publisher rating series series_index size tags title title_sort id_no uuid amazon_url')
         if isinstance(book[7], float):
             book[7] = ""
         identi_str_list = (book[7]).split(',')           
@@ -34,7 +51,16 @@ def build_dict(filename):
                     continue
                 identi_dict[name] = hash_val
 
+        def amazon_url(amazon_hash):
+            url = 'https://www.amazon.com/dp/' + amazon_hash
+            return url
         
+        try:
+            amazon_url = amazon_url(identi_dict['amazon'])
+        except:
+            amazon_url = ""
+
+
         BookofTheLoop = Book(author = book[1],
             description = book[2],
             path_to_cover_jpg = book[3],
@@ -54,14 +80,17 @@ def build_dict(filename):
             title = book[17],
             title_sort = book[18],
             id_no = book[19],
-            uuid = book[20])
+            uuid = book[20],
+            amazon_url = amazon_url)
 
         mybooks[book[17]] = BookofTheLoop
 
     def search(self, search_term, field):
         """Search Calibre books, returns dictionary of results."""
 
-        result = {}
+
+
+        result = DictWithSearch()
         for book in mybooks:
             # ignore un-tagged books
             if isinstance(getattr(mybooks[book], field), float):
@@ -93,7 +122,7 @@ def load_json(filename):
 def search(search_term, field):
     """Search Keaton Library books, returns dictionary of results."""
 
-    result = {}
+    result = DictWithSearch()
     for book in mybooks:
         # ignore un-tagged books
         if isinstance(getattr(mybooks[book], field), float):
