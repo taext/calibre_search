@@ -3,7 +3,7 @@
 #   Monday May 27th 23:40
 #   d@v1d.dk CPH, DK
 
-import pandas, json, re
+import pandas, json, re, os
 from collections import namedtuple, OrderedDict
 
 
@@ -160,5 +160,18 @@ def show_covers_iter(result):
         i += 1
 
 
-mybooks = build_dict('keaton.csv')
+def _get_csv_filename():
+    files = os.listdir()
+    result = []
+    for file in files:
+        m = re.search('.csv', file)
+        if m:
+            result.append(file)
+
+    if len(result) != 1:
+        return "Error: Didn't find exactly one .csv file in folder"
+    else:
+        return result[0]
+
+mybooks = build_dict(_get_csv_filename())
 books = mybooks
