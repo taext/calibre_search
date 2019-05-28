@@ -6,7 +6,7 @@
 import pandas, json, re, os, copy
 from collections import namedtuple, OrderedDict
 import sh, os
-import libgen, goodreads, thehiddenbay, youtube
+import libgen, goodreads, thehiddenbay, youtube, bing_image_search
 
 
 class DictWithSearch(dict):
@@ -97,6 +97,8 @@ class DictWithSearch(dict):
                 new_html_str = new_html_str.replace('linkylinky', thehiddenbay.main(abreviated_title))
             if link_to.lower() == 'youtube':
                 new_html_str = new_html_str.replace('linkylinky', youtube.main(abreviated_title))
+            if link_to.lower() == 'bing-image-search':
+                new_html_str = new_html_str.replace('linkylinky', bing_image_search.main(abreviated_title))
                 #new_html_str = new_html_str.replace('Amazon',self[item].amazon_url)
             #print(self[item].amazon_url)
             covers.append(new_html_str)
