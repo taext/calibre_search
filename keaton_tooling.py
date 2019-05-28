@@ -40,7 +40,6 @@ class DictWithSearch(dict):
                 
         return(result)
 
-
     def intitle(self, search_term):
         """Partially match title field, return result list. 
         Syntactic sugar for dict.search(search_term, 'title')."""
