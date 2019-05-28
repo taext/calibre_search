@@ -12,6 +12,7 @@ from collections import namedtuple, OrderedDict
 from types import MethodType
 
 class DictWithSearch(dict):
+    """dict object with search(), intitle() and intags() functions."""
 
     def __repr__(self):
         
@@ -29,7 +30,7 @@ class DictWithSearch(dict):
         return(string_repr)
     
     def search(self, search_term, field):
-        """Search Keaton Library books, returns dictionary of results."""
+        """Takes search term and field name, returns dictionary of results."""
 
         result = DictWithSearch()
         for book in self:
@@ -158,19 +159,19 @@ def load_json(filename):
         mybooks = json.load(f)
     return(mybooks)
 
-def search(search_term, field):
-    """Search Keaton Library books, returns dictionary of results."""
+# def search(search_term, field):
+#     """Search Keaton Library books, returns dictionary of results."""
 
-    result = DictWithSearch()
-    for book in mybooks:
-        # ignore un-tagged books
-        if isinstance(getattr(mybooks[book], field), float):
-            continue
-        elif search_term.lower() in getattr(mybooks[book], field).lower():
-            #print(book)
-            result[book] = mybooks[book]
+#     result = DictWithSearch()
+#     for book in mybooks:
+#         # ignore un-tagged books
+#         if isinstance(getattr(mybooks[book], field), float):
+#             continue
+#         elif search_term.lower() in getattr(mybooks[book], field).lower():
+#             #print(book)
+#             result[book] = mybooks[book]
             
-    return(result)
+#     return(result)
 
 def ten_titles_iter(result):
     """Iterates over library search dict result returning titles."""
