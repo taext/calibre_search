@@ -18,8 +18,14 @@ class DictWithSearch(dict):
         titles = [t for t in self]                                                                                                                                
         string_repr = ""
         for item in titles:
-            string_repr += item + "\n"
-        string_repr = string_repr[:-1]
+            string_repr += item
+            if self[item].tags:
+                #for item in self[item].tags:
+                string_repr += "   (" + self[item].tags + ")"
+                string_repr += "\n"
+            else:
+                string_repr += "\n"
+        #string_repr = string_repr[:-1]
         return(string_repr)
     
     def search(self, search_term, field):
