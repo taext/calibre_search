@@ -3,8 +3,9 @@
 #   Monday May 27th 23:40
 #   d@v1d.dk CPH, DK
 
-import pandas, json, re, os
+import pandas, json, re, os, copy
 from collections import namedtuple, OrderedDict
+import sh
 
 
 class DictWithSearch(dict):
@@ -57,8 +58,19 @@ class DictWithSearch(dict):
             tags = str(self[title_item].tags).lower()
             m = re.search(search_term.lower(), tags)
             if m:
-                result[title_item] = self[title_item]
+                result[title_item] = copy.deepcopy(self[title_item])
         return(result)
+
+
+    def amazon_open(self):
+        result = [] 
+        for item in self:
+            #print(calibre.books[item].amazon_url) 
+            result.append(self[item].amazon_url)
+        if len(result) < 201:
+            sh.google_chrome(result)
+        else:
+            return "error: more than 200 results, assuming a mistake has been made ( in amazon_open)"
 
 
 def build_dict(filename):
