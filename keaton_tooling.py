@@ -21,12 +21,10 @@ class DictWithSearch(dict):
         for item in titles:
             string_repr += item
             if self[item].tags:
-                #for item in self[item].tags:
                 string_repr += "   (" + self[item].tags + ")"
                 string_repr += "\n"
             else:
                 string_repr += "\n"
-        #string_repr = string_repr[:-1]
         return(string_repr)
     
     def search(self, search_term, field):
@@ -38,7 +36,6 @@ class DictWithSearch(dict):
             if isinstance(getattr(self[book], field), float):
                 continue
             elif search_term.lower() in getattr(self[book], field).lower():
-                #print(book)
                 result[book] = self[book]
                 
         return(result)
