@@ -64,8 +64,8 @@ class DictWithSearch(dict):
 def build_dict(filename):
     """Load JSON file into dictionary."""
 
-    keaton_df = pandas.read_csv(filename)
-    values = keaton_df.get_values()
+    library_df = pandas.read_csv(filename)
+    values = library_df.get_values()
 
     mybooks = DictWithSearch()
     for book in values:
