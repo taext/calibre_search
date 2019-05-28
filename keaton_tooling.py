@@ -15,7 +15,7 @@ class DictWithSearch(dict):
 
     def __repr__(self):
         
-        titles = [t.title() for t in self]                                                                                                                                
+        titles = [t for t in self]                                                                                                                                
         string_repr = ""
         for item in titles:
             string_repr += item + "\n"
