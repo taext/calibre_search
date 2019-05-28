@@ -27,8 +27,7 @@ class TestCalibreTooling(unittest.TestCase):
 
         german_search = kt.books.search('german','tags')
         string_repr = german_search.__repr__()
-        result_to_check_for = """Basic German: A Grammar And Workbook (Grammar Workbooks)
-Reaktionen Der Organischen Chemie
-Rfid
-S-Ketamin - Aktuelle Interdisziplinäre Aspekte"""
-        self.assertEqual(string_repr[:142], result_to_check_for)
+        result_to_check_for = """Basic German: A Grammar and Workbook (Grammar Workbooks)   (German, Language, Teaching Methods & Materials)
+Reaktionen der organischen Chemie   (Chemistry, Organic, Science, German, Language)
+RFID   (Electronics, Wireless, German, Computers, Language)"""
+        self.assertEqual(string_repr[:251], result_to_check_for)
