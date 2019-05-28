@@ -1,9 +1,5 @@
 """Calibre library Python tooling."""
 
-#   Python tooling for 
-#
-#        Keaton Institute Calibre Library
-#
 #   Monday May 27th 23:40
 #   d@v1d.dk CPH, DK
 
