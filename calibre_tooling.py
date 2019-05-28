@@ -75,6 +75,7 @@ class DictWithSearch(dict):
 
     def cover_html(self, width, link_to):
         """link_to options: amazon libgen goodread thehiddenbay youtube."""
+
         covers = []
         html_str = '<a href="linkylinky" alt="none title="Amazon"><img src="smiley.gif" alt="Smiley face" width="300"></img></a>'
         temp_html_str = html_str.replace('300', str(width))
@@ -105,7 +106,11 @@ class DictWithSearch(dict):
         covers_str = " ".join([cover for cover in covers])
         return(covers_str)
 
-    def open_covers_browser(self, width=300, link_to='amazon'):
+    def cover_browser(self, width=300, link_to='amazon'):
+        """link_to="help" for options."""
+
+        if link_to == 'help':
+            return("options: amazon libgen goodreads thehiddenbay youtube bing-image-search")
         html_str = self.cover_html(width=width, link_to=link_to)
         with open('temp.htm','w') as f:
             f.write(html_str)
