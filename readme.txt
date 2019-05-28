@@ -1,14 +1,13 @@
 
-   - keaton_tooling.py - 
+                        - calibre_tooling.py - 
    
 
-    How to Install
+        How to Install
 
-        1 . Copy a Calibre .csv library export file to the folder.
+        Copy a Calibre .csv library export file to the folder.
 
+        keaton_tooling.py expects a single .csv in the folder to use as default.
 
-    That is, keaton_tooling.py expects a single .csv in the folder to use as default.
-
-    Enjoy!
+        Enjoy!
 
 
