@@ -76,7 +76,10 @@ def build_dict(filename):
 
     mybooks = DictWithSearch()
     for book in values:
-        Book = namedtuple('Book', 'author description path_to_cover_jpg time_stamp book_format isbn identifiers language library_name pubdate publisher rating series series_index size tags title title_sort id_no uuid amazon_url')
+        Book = namedtuple('Book', 'author description path_to_cover_jpg '\
+                          'time_stamp book_format isbn identifiers language '\
+                          'library_name pubdate publisher rating series series_index '\
+                          'size tags title title_sort id_no uuid amazon_url')
         if isinstance(book[7], float):
             book[7] = ""
         identi_str_list = (book[7]).split(',')           
