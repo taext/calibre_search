@@ -5,7 +5,7 @@
 
 import pandas, json, re, os, copy
 from collections import namedtuple, OrderedDict
-import sh
+import sh, os
 
 
 class DictWithSearch(dict):
@@ -71,6 +71,25 @@ class DictWithSearch(dict):
             sh.google_chrome(result)
         else:
             return "error: more than 200 results, assuming a mistake has been made ( in amazon_open)"
+
+    def cover_html(self, width):
+        covers = []
+        html_str = '<img src="smiley.gif" alt="Smiley face" width="300"></img>'
+        temp_html_str = html_str.replace('300', str(width))
+        #print(f'temp_html_str: {temp_html_str}')
+        for item in self:
+            new_html_str = temp_html_str.replace('smiley.gif', self[item].path_to_cover_jpg)
+            #print(self[item].path_to_cover_jpg)
+            covers.append(new_html_str)
+        covers_str = " ".join([cover for cover in covers])
+        return(covers_str)
+
+    def open_covers_browser(self, width=300):
+        html_str = self.cover_html(width=width)
+        with open('temp.htm','w') as f:
+            f.write(html_str)
+        sh.google_chrome('temp.htm')
+        os.remove('temp.htm')
 
 
 def build_dict(filename):
