@@ -13,6 +13,15 @@ from types import MethodType
 
 class DictWithSearch(dict):
 
+    def __repr__(self):
+        
+        titles = [t.title() for t in self]                                                                                                                                
+        string_repr = ""
+        for item in titles:
+            string_repr += item + "\n"
+        string_repr = string_repr[:-1]
+        return(string_repr)
+    
     def search(self, search_term, field):
         """Search Keaton Library books, returns dictionary of results."""
 
@@ -26,6 +35,8 @@ class DictWithSearch(dict):
                 result[book] = self[book]
                 
         return(result)
+
+    
 
 
 def build_dict(filename):
@@ -85,23 +96,23 @@ def build_dict(filename):
 
         mybooks[book[17]] = BookofTheLoop
 
-    def search(self, search_term, field):
-        """Search Calibre books, returns dictionary of results."""
+    # def search(self, search_term, field):
+    #     """Search Calibre books, returns dictionary of results."""
 
 
 
-        result = DictWithSearch()
-        for book in mybooks:
-            # ignore un-tagged books
-            if isinstance(getattr(mybooks[book], field), float):
-                continue
-            elif search_term.lower() in getattr(mybooks[book], field).lower():
-                #print(book)
-                result[book] = mybooks[book]
+    #     result = DictWithSearch()
+    #     for book in mybooks:
+    #         # ignore un-tagged books
+    #         if isinstance(getattr(mybooks[book], field), float):
+    #             continue
+    #         elif search_term.lower() in getattr(mybooks[book], field).lower():
+    #             #print(book)
+    #             result[book] = mybooks[book]
 
-        return(result)
+    #     return(result)
 
-    mybooks.search = MethodType(search, mybooks)
+    # mybooks.search = MethodType(search, mybooks)
 
     return mybooks
 
