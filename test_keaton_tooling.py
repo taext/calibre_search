@@ -5,7 +5,7 @@ class TestCalibreTooling(unittest.TestCase):
 
     def test_dict_building(self):
         
-        books = kt.build_dict('Tag German.csv')                                                                                                
+        books = kt.build_dict('tests/Tag German.csv')                                                                                                
         self.assertEqual(len(books), 31)
 
     def test_dict_length(self):
