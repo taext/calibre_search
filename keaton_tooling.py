@@ -125,24 +125,6 @@ def build_dict(filename):
 
         mybooks[book[17]] = BookofTheLoop
 
-    # def search(self, search_term, field):
-    #     """Search Calibre books, returns dictionary of results."""
-
-
-
-    #     result = DictWithSearch()
-    #     for book in mybooks:
-    #         # ignore un-tagged books
-    #         if isinstance(getattr(mybooks[book], field), float):
-    #             continue
-    #         elif search_term.lower() in getattr(mybooks[book], field).lower():
-    #             #print(book)
-    #             result[book] = mybooks[book]
-
-    #     return(result)
-
-    # mybooks.search = MethodType(search, mybooks)
-
     return mybooks
 
 def write_json(mybooks, filename):
@@ -159,19 +141,6 @@ def load_json(filename):
         mybooks = json.load(f)
     return(mybooks)
 
-# def search(search_term, field):
-#     """Search Keaton Library books, returns dictionary of results."""
-
-#     result = DictWithSearch()
-#     for book in mybooks:
-#         # ignore un-tagged books
-#         if isinstance(getattr(mybooks[book], field), float):
-#             continue
-#         elif search_term.lower() in getattr(mybooks[book], field).lower():
-#             #print(book)
-#             result[book] = mybooks[book]
-            
-#     return(result)
 
 def ten_titles_iter(result):
     """Iterates over library search dict result returning titles."""
