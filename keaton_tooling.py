@@ -5,7 +5,6 @@
 
 import pandas, json, re
 from collections import namedtuple, OrderedDict
-from types import MethodType
 
 
 class DictWithSearch(dict):
