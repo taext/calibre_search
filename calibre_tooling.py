@@ -17,7 +17,7 @@ class DictWithSearch(dict):
         string_repr = ""
         for item in titles:
             string_repr += item
-            if self[item].tags:
+            if not isinstance(self[item].tags, float):
                 string_repr += "   (" + self[item].tags + ")"
                 string_repr += "\n"
             else:
@@ -41,23 +41,23 @@ class DictWithSearch(dict):
         """Partially match title field, return result list. 
         Syntactic sugar for dict.search(search_term, 'title')."""
 
-        result = []
+        result = DictWithSearch()
         for title_item in self:
             m = re.search(search_term.lower(), title_item.lower())
             if m:
-                result.append(title_item)
+                result[title_item] = self[title_item]
         return(result)
 
     def intags(self, search_term):
         """Partially match tag field, return result list. 
         Syntactic sugar for dict.search(search_term, 'tags')."""
 
-        result = []
+        result = DictWithSearch()
         for title_item in self:
             tags = str(self[title_item].tags).lower()
             m = re.search(search_term.lower(), tags)
             if m:
-                result.append(title_item)
+                result[title_item] = self[title_item]
         return(result)
 
 
