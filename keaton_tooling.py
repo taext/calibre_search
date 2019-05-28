@@ -11,8 +11,9 @@ import pandas, json, re
 from collections import namedtuple, OrderedDict
 from types import MethodType
 
+
 class DictWithSearch(dict):
-    """dict object with search(), intitle() and intags() functions."""
+    """dict object with search, intitle and intags functions."""
 
     def __repr__(self):
         
@@ -63,7 +64,7 @@ class DictWithSearch(dict):
                 result.append(title_item)
         return(result)
 
-    
+
 def build_dict(filename):
     """Load JSON file into dictionary."""
 
@@ -126,13 +127,15 @@ def build_dict(filename):
 
     return mybooks
 
+
 def write_json(mybooks, filename):
     """Write dictionary to file."""
     
     json_dict = json.dumps(mybooks)
     with open(filename,'w') as f:
         f.write(json_dict)
-    
+
+
 def load_json(filename):
     """Load dictionary from JSON file."""
 
@@ -149,6 +152,7 @@ def ten_titles_iter(result):
     while i < len(titles): 
         yield(titles[i:i+10]) 
         i += 10
+
 
 def show_covers_iter(result):
     """Iterates over library search dict result returning cover JPG file paths."""
