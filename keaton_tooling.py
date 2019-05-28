@@ -7,7 +7,7 @@
 #   Monday May 27th 23:40
 #   d@v1d.dk CPH, DK
 
-import pandas, json
+import pandas, json, re
 from collections import namedtuple, OrderedDict
 from types import MethodType
 
@@ -40,6 +40,30 @@ class DictWithSearch(dict):
                 #print(book)
                 result[book] = self[book]
                 
+        return(result)
+
+
+    def intitle(self, search_term):
+        """Partially match title field, return result list. 
+        Syntactic sugar for dict.search(search_term, 'title')."""
+
+        result = []
+        for title_item in self:
+            m = re.search(search_term.lower(), title_item.lower())
+            if m:
+                result.append(title_item)
+        return(result)
+
+    def intags(self, search_term):
+        """Partially match tag field, return result list. 
+        Syntactic sugar for dict.search(search_term, 'tags')."""
+
+        result = []
+        for title_item in self:
+            tags = str(self[title_item].tags).lower()
+            m = re.search(search_term.lower(), tags)
+            if m:
+                result.append(title_item)
         return(result)
 
     
