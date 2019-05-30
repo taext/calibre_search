@@ -1,12 +1,12 @@
 #!/home/dd/anaconda3/bin/python
 import sys, re
-import bn
+import bn as bing
 
 def main(book_title):
     """Takes book title, uses Bing to get Amazon URL."""
 
     amazon_search_str = 'amazon ' + book_title
-    results = bn.return_results(amazon_search_str, 8)
+    results = bing.return_results(amazon_search_str, 8)
     for item in results:
         if '/dp/' in item and '.com/' in item:
             m = re.search('\/dp\/([0-9]+)', item)
