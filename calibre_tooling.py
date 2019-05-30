@@ -174,8 +174,8 @@ class AmazonLinkBook(BookDataClass):
 
     def amazon_url_method(self):
         if 'amazon' in self.identifiers:
-            print(f'self.identifiers: {self.identifiers}')
-            url = 'https://www.amazon.com/dp/' + self.identifiers.split(":")[1]
+            #print(f'self.identifiers: {self.identifiers}')
+            url = 'https://www.amazon.com/dp/' + self.identifiers['amazon']
             return url
     
 
