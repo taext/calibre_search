@@ -1,12 +1,14 @@
 """Calibre library Python tooling."""
 
-#   Monday May 27th 23:40
-#   d@v1d.dk CPH, DK
+#   Monday May 30th 13:35
+#   by d@v1d.dk CPH, DK
 
 import pandas, json, re, os, copy
 from collections import namedtuple, OrderedDict
 import sh, os
 import libgen, goodreads, thehiddenbay, youtube, bing_image_search
+import amazon_link
+from dataclasses import dataclass
 
 
 class DictWithSearch(dict):
@@ -125,50 +127,117 @@ class DictWithSearch(dict):
                 result[item] = self[item]
         return(result)
 
+    def no_amazon_id(self):
+        """Takes DictWithSearch, returns title of Books without Amazon identifier hash."""
+        result = []
+        for item in self:
+            try:
+                self[item].identifiers['amazon']
+            except:
+                result.append(item)
+                
+        return result
+
+
+
+@dataclass
+class BookDataClass:
+
+    def amazon_url(self):
+        url = 'https://www.amazon.com/dp/' + self.identifiers['amazon'] 
+        return url
+
+   
+    author: str
+    description: str
+    path_to_cover_jpg: str
+    time_stamp: str
+    book_format: str
+    isbn: str
+    identifiers: dict
+    language : str
+    library_name: str
+    pubdate : str
+    publisher: str
+    rating: str
+    series: str
+    series_index: str
+    size: str
+    tags: list
+    title: str
+    title_sort: str
+    id_no: str
+    uuid: str
+
+
+class AmazonLinkBook(BookDataClass):
+
+    def amazon_url_method(self):
+        if 'amazon' in self.identifiers:
+            print(f'self.identifiers: {self.identifiers}')
+            url = 'https://www.amazon.com/dp/' + self.identifiers.split(":")[1]
+            return url
+    
+
+
+    def lookup_amazon_link(self):
+        """Uses the amazon_link module to lookup Amazon link and add to identifiers."""
+
+        def amazon_url(amazon_hash):
+            url = 'https://www.amazon.com/dp/' + amazon_hash
+            return url
+        
+        # try:
+        #     amazon_url = amazon_url(self.identifiers['amazon'])
+        # except:
+        #     amazon_url = ""
+
+        # return amazon_url
+
+
+        print(f'Looking up {self.title} Amazon URL...')
+        ama_link = amazon_link.main(self.title)
+        if ama_link == None:
+            # Amazon link lookup was unsuccesfull
+            print('failed to get Amazon link')
+            return
+        #print('ama_link: ', ama_link)
+        self.identifiers['amazon'] = ama_link[1]
+        #print('OVER HERE: ', amazon_url(self.identifiers['amazon']))
+        self.amazon_url = amazon_url(self.identifiers['amazon'])
+        #return DictWithSearchObj
+
 
 def build_dict(filename):
     """Load JSON file into dictionary."""
+
+    def split_identifiers(id_str):
+        my_dict = {}
+        if not isinstance(id_str, float):
+            id_lines = id_str.split(",")
+            for id_line in id_lines:
+                
+                if len(id_line.split(":")) == 2:
+                    key, value = id_line.split(":")
+                    my_dict[key] = value
+            
+        return my_dict
 
     library_df = pandas.read_csv(filename)
     values = library_df.get_values()
 
     mybooks = DictWithSearch()
     for book in values:
-        Book = namedtuple('Book', 'author description path_to_cover_jpg '\
-                          'time_stamp book_format isbn identifiers language '\
-                          'library_name pubdate publisher rating series series_index '\
-                          'size tags title title_sort id_no uuid amazon_url')
-        if isinstance(book[7], float):
-            book[7] = ""
-        identi_str_list = (book[7]).split(',')           
         
-        # parse identifiers into dict
-        identi_dict = {}
-        for item in identi_str_list:
-            if ':' in item:
-                try:
-                    name, hash_val = item.split(':')
-                except:
-                    continue
-                identi_dict[name] = hash_val
+       
 
-        def amazon_url(amazon_hash):
-            url = 'https://www.amazon.com/dp/' + amazon_hash
-            return url
-        
-        try:
-            amazon_url = amazon_url(identi_dict['amazon'])
-        except:
-            amazon_url = ""
-
-
-        BookofTheLoop = Book(author = book[1],
+        BookofTheLoop = AmazonLinkBook(author = book[1],
             description = book[2],
             path_to_cover_jpg = book[3],
             time_stamp = book[4],
             book_format = book[5],
             isbn = book[6],
-            identifiers = identi_dict,
+            identifiers = split_identifiers(book[7]),
             language = book[8],
             library_name = book[9],
             pubdate = book[10],
@@ -182,9 +251,17 @@ def build_dict(filename):
             title_sort = book[18],
             id_no = book[19],
             uuid = book[20],
-            amazon_url = amazon_url)
+            )
+        
+        title = book[17]
 
-        mybooks[book[17]] = BookofTheLoop
+        mybooks[title] = BookofTheLoop
+
+        try:
+            mybooks[title].amazon_url = amazon_url(mybooks[title].identifiers['amazon'])
+        except:
+            mybooks[title].amazon_url = ""
+        
 
     return mybooks
 
