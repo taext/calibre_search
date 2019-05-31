@@ -27,10 +27,7 @@ cali.books['Dive Into Python']
 
 ```python
 res = cali.books['Dive Into Python']
-```
 
-
-```python
 [field for field in dir(res) if not "__" in field]           # the Book object fields
 ```
 
