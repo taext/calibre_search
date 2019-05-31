@@ -79,18 +79,6 @@ cali.books['Dive Into Python'].tags
 
 
 
-
-```python
-cali.books['Dive Into Python'].amazon_url_method()
-```
-
-
-
-
-    'https://www.amazon.com/dp/1590593561'
-
-
-
 <br>
 
 ## Searching
