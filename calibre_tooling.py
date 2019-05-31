@@ -6,8 +6,8 @@
 import pandas, json, re, os, copy
 from collections import namedtuple, OrderedDict
 import sh, os
-import libgen, goodreads, thehiddenbay, youtube, bing_image_search
-import amazon_link
+from code import libgen, goodreads, thehiddenbay, youtube, bing_image_search
+from code import amazon_link
 from dataclasses import dataclass
 
 
@@ -171,6 +171,10 @@ class BookDataClass:
 
 
 class AmazonLinkBook(BookDataClass):
+
+    def __repr__(self):
+        repr_str = self.title  + '   (' + self.book_format + ')' + "   (" + self.tags + ')'
+        return(repr_str)
 
     def amazon_url_method(self):
         if 'amazon' in self.identifiers:
