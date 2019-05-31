@@ -76,7 +76,7 @@ class DictWithSearch(dict):
             return "error: more than 200 results, assuming a mistake has been made ( in amazon_open)"
 
     def cover_html(self, width, link_to):
-        """link_to options: amazon libgen goodread thehiddenbay youtube."""
+        """link_to options: amazon libgen goodread thehiddenbay youtube bing_image_search."""
 
         covers = []
         html_str = '<a href="linkylinky" alt="none title="Amazon"><img src="smiley.gif" alt="Smiley face" width="300"></img></a>'
