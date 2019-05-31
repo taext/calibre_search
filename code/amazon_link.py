@@ -1,6 +1,6 @@
 #!/home/dd/anaconda3/bin/python
 import sys, re
-import bn as bing
+from code import bn as bing
 
 def main(book_title):
     """Takes book title, uses Bing to get Amazon URL."""
