@@ -57,10 +57,6 @@ class TestBook(unittest.TestCase):
         python_book = calibre.books['Learning Python Testing']
         self.assertEqual(python_book.language, 'eng')
 
-    def test_book_library_name(self):
-        python_book = calibre.books['Learning Python Testing']
-        self.assertEqual(python_book.library_name, 'Keaton Institute Intelligence Library')
-
     def test_book_pubdate(self):
         python_book = calibre.books['Learning Python Testing']
         self.assertEqual(python_book.pubdate, '2014-11-25T00:00:00+01:00')
