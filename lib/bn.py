@@ -8,7 +8,7 @@
 
 
 import sys, requests, re
-from code import bing_stepper
+from lib import bing_stepper
 from more_itertools import unique_everseen
 
 userAgent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0'
