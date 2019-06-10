@@ -1,13 +1,11 @@
 """Calibre library Python tooling."""
 
-#   Monday May 30th 13:35
+#   Monday Jun 10th 13:35
 #   by d@v1d.dk CPH, DK
 
-import pandas, json, re, os, copy
+import pandas, json, re, os, copy, sh, time
 from collections import namedtuple, OrderedDict
-import sh, os
-from lib import libgen, goodreads, thehiddenbay, youtube, bing_image_search
-from lib import amazon_link
+from lib import libgen, goodreads, thehiddenbay, youtube, bing_image_search, amazon_link
 from dataclasses import dataclass
 
 
@@ -116,7 +114,8 @@ class DictWithSearch(dict):
         html_str = self.cover_html(width=width, link_to=link_to)
         with open('temp.htm','w') as f:
             f.write(html_str)
-        sh.google_chrome('temp.htm')
+        sh.firefox('temp.htm')
+        time.sleep(1)
         os.remove('temp.htm')
 
     def untagged(self):
