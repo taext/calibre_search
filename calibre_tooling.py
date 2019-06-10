@@ -6,8 +6,8 @@
 import pandas, json, re, os, copy
 from collections import namedtuple, OrderedDict
 import sh, os
-from code import libgen, goodreads, thehiddenbay, youtube, bing_image_search
-from code import amazon_link
+from lib import libgen, goodreads, thehiddenbay, youtube, bing_image_search
+from lib import amazon_link
 from dataclasses import dataclass
 
 
