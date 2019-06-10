@@ -69,7 +69,7 @@ class DictWithSearch(dict):
             #print(calibre.books[item].amazon_url) 
             result.append(self[item].amazon_url)
         if len(result) < 201:
-            sh.google_chrome(result)
+            sh.firefox(result)
         else:
             return "error: more than 200 results, assuming a mistake has been made ( in amazon_open)"
 
