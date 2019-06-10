@@ -66,7 +66,7 @@ class DictWithSearch(dict):
     def amazon_open(self):
         result = [] 
         for item in self:
-            #print(calibre.books[item].amazon_url) 
+
             result.append(self[item].amazon_url)
         if len(result) < 201:
             sh.firefox(result)
@@ -79,11 +79,10 @@ class DictWithSearch(dict):
         covers = []
         html_str = '<a href="linkylinky" alt="none title="Amazon"><img src="smiley.gif" alt="Smiley face" width="300"></img></a>'
         temp_html_str = html_str.replace('300', str(width))
-        #print(f'temp_html_str: {temp_html_str}')
+
         for item in self:
-
             abreviated_title = self[item].title.split(':')[0]
-
+            # skip items with no cover path
             if isinstance(self[item].path_to_cover_jpg, float):
                 continue
             new_html_str = temp_html_str.replace('smiley.gif', self[item].path_to_cover_jpg)
@@ -100,8 +99,7 @@ class DictWithSearch(dict):
                 new_html_str = new_html_str.replace('linkylinky', youtube.main(abreviated_title))
             if link_to.lower() == 'bing-image-search':
                 new_html_str = new_html_str.replace('linkylinky', bing_image_search.main(abreviated_title))
-                #new_html_str = new_html_str.replace('Amazon',self[item].amazon_url)
-            #print(self[item].amazon_url)
+
             covers.append(new_html_str)
         covers_str = " ".join([cover for cover in covers])
         return(covers_str)
@@ -119,6 +117,7 @@ class DictWithSearch(dict):
         os.remove('temp.htm')
 
     def untagged(self):
+        """Returns items with no tags."""
         result = DictWithSearch()
 
         for item in self:
@@ -141,10 +140,11 @@ class DictWithSearch(dict):
 
 @dataclass
 class BookDataClass:
+    """Object representing Calibre book."""
 
-    def amazon_url(self):
-        url = 'https://www.amazon.com/dp/' + self.identifiers['amazon'] 
-        return url
+    # def amazon_url(self):
+    #     url = 'https://www.amazon.com/dp/' + self.identifiers['amazon'] 
+    #     return url
 
    
     author: str
@@ -177,7 +177,7 @@ class AmazonLinkBook(BookDataClass):
 
     def amazon_url_method(self):
         if 'amazon' in self.identifiers:
-            #print(f'self.identifiers: {self.identifiers}')
+
             url = 'https://www.amazon.com/dp/' + self.identifiers['amazon']
             return url
     
@@ -190,25 +190,15 @@ class AmazonLinkBook(BookDataClass):
             url = 'https://www.amazon.com/dp/' + amazon_hash
             return url
         
-        # try:
-        #     amazon_url = amazon_url(self.identifiers['amazon'])
-        # except:
-        #     amazon_url = ""
-
-        # return amazon_url
-
-
         print(f'Looking up {self.title} Amazon URL...')
         ama_link = amazon_link.main(self.title)
         if ama_link == None:
-            # Amazon link lookup was unsuccesfull
+            # Amazon link lookup was unsuccesful
             print('failed to get Amazon link')
             return
-        #print('ama_link: ', ama_link)
+
         self.identifiers['amazon'] = ama_link[1]
-        #print('OVER HERE: ', amazon_url(self.identifiers['amazon']))
         self.amazon_url = amazon_url(self.identifiers['amazon'])
-        #return DictWithSearchObj
 
 
 def build_dict(filename):
@@ -231,8 +221,6 @@ def build_dict(filename):
 
     mybooks = DictWithSearch()
     for book in values:
-        
-       
 
         BookofTheLoop = AmazonLinkBook(author = book[1],
             description = book[2],
