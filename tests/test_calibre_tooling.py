@@ -5,8 +5,8 @@ class TestCalibreTooling(unittest.TestCase):
 
     def test_dict_building(self):
         
-        books = calibre.build_dict('tests/tag_german.csv')                                                                                                
-        self.assertEqual(len(books), 31)
+        books = calibre.build_dict('tests/welcome_shelf.csv')                                                                                                
+        self.assertEqual(len(books), 34)
 
     def test_dict_length(self):
         
@@ -26,8 +26,6 @@ class TestCalibreTooling(unittest.TestCase):
     def test_repr(self):
 
         german_search = calibre.books.search('german','tags')
-        string_repr = german_search.__repr__()
-        result_to_check_for = """Basic German: A Grammar and Workbook (Grammar Workbooks)   (German, Language, Teaching Methods & Materials)
-Reaktionen der organischen Chemie   (Chemistry, Organic, Science, German, Language)
-RFID   (Electronics, Wireless, German, Computers, Language)"""
-        self.assertEqual(string_repr[:251], result_to_check_for)
+        string_repr = german_search.__repr__()[:276]
+        result_to_check_for = """Basic German: A Grammar and Workbook (Grammar Workbooks)   (pdf)   (German, Language, Teaching Methods & Materials)\nReaktionen der organischen Chemie   (pdf)   (Chemistry, Organic, Science, German, Language)\nRFID   (pdf)   (Electronics, Wireless, German, Computers, Language)\n"""
+        self.assertEqual(string_repr, result_to_check_for)
