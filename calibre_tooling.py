@@ -19,6 +19,8 @@ class DictWithSearch(dict):
         string_repr = ""
         for item in titles:
             string_repr += item
+            if not isinstance(self[item].book_format, float):
+                string_repr += "   (" + self[item].book_format + ")"
             if not isinstance(self[item].tags, float):
                 string_repr += "   (" + self[item].tags + ")"
                 string_repr += "\n"
@@ -173,7 +175,9 @@ class AmazonLinkBook(BookDataClass):
     """BookDataClass object with amazon_url_method"""
 
     def __repr__(self):
-        repr_str = self.title  + '   (' + self.book_format + ')' + "   (" + self.tags + ')'
+        repr_str = self.title  + '   (' + self.book_format + ')' 
+        if not isinstance(self.tags, float):
+            repr_str += "   (" + self.tags + ')'
         return(repr_str)
 
     def amazon_url_method(self):
