@@ -11,10 +11,6 @@ class TestBook(unittest.TestCase):
         python_book = calibre.books['Learning Python Testing']
         self.assertEqual(python_book.tags, 'Python, Testing, Computers')
 
-    def test_book_tags(self): 
-        python_book = calibre.books['Learning Python Testing']
-        self.assertEqual(python_book.tags, 'Python, Testing, Computers')
-
     def test_book_author(self): 
         python_book = calibre.books['Learning Python Testing']
         self.assertEqual(python_book.author, 'Daniel Arbuckle')
@@ -44,10 +40,6 @@ class TestBook(unittest.TestCase):
     def test_book_book_format(self):
         python_book = calibre.books['Learning Python Testing']
         self.assertEqual(python_book.book_format, 'pdf')
-
-    def test_book_isbn(self):
-        python_book = calibre.books['Learning Python Testing']
-        self.assertEqual(python_book.isbn, '9781783553228')
 
     def test_book_isbn(self):
         python_book = calibre.books['Learning Python Testing']
