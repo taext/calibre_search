@@ -85,7 +85,7 @@ class DictWithSearch(dict):
             abreviated_title = self[item].title.split(':')[0]
 
             if isinstance(self[item].path_to_cover_jpg, float):
-                continue # NB: consequenses unknown :D .D
+                continue
             new_html_str = temp_html_str.replace('smiley.gif', self[item].path_to_cover_jpg)
             if link_to.lower() == 'amazon':
                 new_html_str = new_html_str.replace('linkylinky',self[item].amazon_url)
