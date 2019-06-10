@@ -170,6 +170,7 @@ class BookDataClass:
 
 
 class AmazonLinkBook(BookDataClass):
+    """BookDataClass object with amazon_url_method"""
 
     def __repr__(self):
         repr_str = self.title  + '   (' + self.book_format + ')' + "   (" + self.tags + ')'
@@ -287,9 +288,9 @@ def show_covers_iter(result):
     """Iterates over library search dict result returning cover JPG file paths."""
     
     books = list(result.keys())
-    i = 0
-    while i < len(books): 
-        yield(result[books[i]]['path_to_cover_jpg'])
+
+    for item in books:
+        yield(result[item].path_to_cover_jpg)
         i += 1
 
 
