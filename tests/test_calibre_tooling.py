@@ -5,12 +5,12 @@ class TestCalibreTooling(unittest.TestCase):
 
     def test_dict_building(self):
         
-        books = calibre.build_dict('tests/Tag German.csv')                                                                                                
+        books = calibre.build_dict('tests/tag_german.csv')                                                                                                
         self.assertEqual(len(books), 31)
 
     def test_dict_length(self):
         
-        self.assertEqual(len(calibre.books), 4245)
+        self.assertEqual(len(calibre.books), 4262)
 
     def test_searching(self):
 
