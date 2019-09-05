@@ -1,4 +1,4 @@
-import calibre_tooling as calibre
+import calibre_search as calibre
 import unittest
 
 class TestBook(unittest.TestCase):
