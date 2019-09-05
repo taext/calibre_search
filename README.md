@@ -1,14 +1,14 @@
 
 
 ```python
-import calibre_tooling as cali
+import calibre_search as cali
 ```
 
 <br>
 
 ## Accessing specific books and fields
 
-`calibre_tooling` loads the .csv Calibre library export file in its main folder on import.
+`calibre_search` loads the .csv Calibre library export file in its main folder on import.
 
 This library is represented by the `books` object:
 
